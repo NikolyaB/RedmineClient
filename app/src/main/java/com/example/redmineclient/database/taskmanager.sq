@@ -1,0 +1,102 @@
+CREATE TABLE userEntity(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    login TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    isTeamLead INTEGER AS Boolean NOT NULL DEFAULT 0
+);
+
+CREATE TABLE taskEntity(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    priority INTEGER NOT NULL,
+    isDone INTEGER AS Boolean NOT NULL DEFAULT 0,
+    colorHex INTEGER NOT NULL,
+    created INTEGER NOT NULL,
+    userId INTEGER,
+    FOREIGN KEY (userId) REFERENCES userEntity(id)
+);
+
+getAllTasks:
+SELECT *
+FROM taskEntity;
+
+getAllTasksByIsDone:
+SELECT *
+FROM taskEntity
+WHERE isDone = 1 AND userId = ?;
+
+getAllTasksByNotIsDone:
+SELECT *
+FROM taskEntity
+WHERE isDone = 0 AND userId = ?;
+
+getAllTasksByPriority:
+SELECT *
+FROM taskEntity
+WHERE userId = ?
+ORDER BY priority DESC;
+
+getTaskById:
+SELECT *
+FROM taskEntity
+WHERE id = ?;
+
+getAllTasksByUserId:
+SELECT *
+FROM taskEntity
+WHERE userId = ?;
+
+updateStatusTask:
+UPDATE taskEntity
+SET isDone = ?
+WHERE id = ?;
+
+insertUser:
+INSERT OR REPLACE
+INTO userEntity(
+    id,
+    login,
+    password,
+    isTeamLead
+) VALUES(?, ?, ?, ?);
+
+loginUser:
+SELECT *
+FROM userEntity
+WHERE login = ? AND password = ?;
+
+getAllUsers:
+SELECT *
+FROM userEntity;
+
+getCurrentUser:
+SELECT *
+FROM userEntity
+WHERE id = ?;
+
+deleteUserById:
+DELETE FROM userEntity
+WHERE id = ?;
+
+changeGradeUser:
+UPDATE userEntity
+SET isTeamLead = ?
+WHERE id = ?;
+
+insertTask:
+INSERT OR REPLACE
+INTO taskEntity(
+    id,
+    title,
+    content,
+    priority,
+    isDone,
+    colorHex,
+    created,
+    userId
+) VALUES(?, ?, ?, ?, ?, ?, ?, ?);
+
+deleteTaskById:
+DELETE FROM taskEntity
+WHERE id = ?;

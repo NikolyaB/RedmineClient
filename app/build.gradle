@@ -1,0 +1,90 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+//    id 'com.squareup.sqldelight'
+//    id 'kotlin-android'
+    id 'com.squareup.sqldelight'
+}
+
+android {
+    namespace 'com.example.redmineclient'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.redmineclient"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.1"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+
+//sqldelight {
+//    databases {
+//        Database { // This will be the name of the generated database class.
+//            packageName = "com.example"
+//        }
+//    }
+//}
+//sqldelight {
+//    databases {
+//        Database { // This will be the name of the generated database class.
+//            packageName = "com.example"
+//            listOf = "sqliDelight"
+//        }
+//    }
+//}
+
+dependencies {
+    implementation("androidx.compose.ui:ui:1.3.1")
+    implementation("androidx.compose.ui:ui-tooling:1.3.1")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.3.1")
+    implementation("androidx.compose.foundation:foundation:1.3.1")
+    implementation("androidx.compose.material:material:1.3.1")
+    implementation("androidx.activity:activity-compose:1.6.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+
+    implementation("com.squareup.sqldelight:runtime:1.5.3")
+    implementation "com.squareup.sqldelight:android-driver:1.5.3"
+    implementation "com.squareup.sqldelight:sqlite-driver:1.5.3"
+
+
+    // Accompanist
+    implementation("com.google.accompanist:accompanist-pager:0.14.0") // Pager
+    implementation("com.google.accompanist:accompanist-pager-indicators:0.14.0") // Pager Indicators
+//    implementation("com.squareup.sqldelight:android-driver:1.5.3")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+    implementation("io.insert-koin:koin-android:3.3.1")
+    implementation("io.insert-koin:koin-androidx-compose:3.4.0")
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+}
