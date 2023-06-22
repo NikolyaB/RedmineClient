@@ -2,8 +2,12 @@ package com.example.redmineclient.di
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 interface ViewModel {
     val scope: CoroutineScope
@@ -12,7 +16,6 @@ interface ViewModel {
     fun onViewShown()
     fun onViewHidden()
     fun onCleared()
-    fun validateResponse()
 }
 
 abstract class ViewModelImpl: ViewModel {
@@ -29,10 +32,6 @@ abstract class ViewModelImpl: ViewModel {
 
     override fun onCleared() {
         clearJobs()
-    }
-
-    override fun validateResponse() {
-
     }
 
     suspend fun exceptionHandleable(

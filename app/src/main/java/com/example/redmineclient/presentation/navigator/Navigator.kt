@@ -23,10 +23,10 @@ interface Navigator {
     fun navigateToProjects()
     fun navigateToTabMenu(project_id: Int)
     fun navigateToTasks()
-    fun navigateToTaskDetail()
+    fun navigateToTaskDetail(task_id: Int? = null, project_id: Int)
     fun navigateToTaskEdit()
     fun navigateToTimeEntries()
-    fun navigateToTimeEntriesEdit()
+    fun navigateToTimeEntriesEdit(time_entries_id: Int? = null)
 
 }
 
@@ -64,8 +64,12 @@ class NavigatorImpl(
         navController.navigate(ScreenRoute.Tasks.name)
     }
 
-    override fun navigateToTaskDetail() {
-        navController.navigate(ScreenRoute.TaskDetail.name)
+    override fun navigateToTaskDetail(task_id: Int?, project_id: Int) {
+        if (task_id == null) {
+            navController.navigate("${ScreenRoute.TaskDetail.name}/$project_id")
+        } else {
+            navController.navigate("${ScreenRoute.TaskDetail.name}/$task_id/$project_id")
+        }
     }
 
     override fun navigateToTaskEdit() {
@@ -76,8 +80,12 @@ class NavigatorImpl(
         navController.navigate(ScreenRoute.TimeEntries.name)
     }
 
-    override fun navigateToTimeEntriesEdit() {
-        navController.navigate(ScreenRoute.TimeEntriesEdit.name)
+    override fun navigateToTimeEntriesEdit(time_entries_id: Int?) {
+        if (time_entries_id == null) {
+            navController.navigate(ScreenRoute.TimeEntriesEdit.name)
+        } else {
+            navController.navigate("${ScreenRoute.TimeEntriesEdit.name}/$time_entries_id")
+        }
     }
 
     private fun navigateToNavBarDestination(root: ScreenRoute) {
@@ -89,5 +97,4 @@ class NavigatorImpl(
             restoreState = true
         }.also { currentMainStack = root }
     }
-
 }

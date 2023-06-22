@@ -1,11 +1,9 @@
 package com.example.redmineclient.presentation.ui.tabMenu.view
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.MutableState
@@ -19,7 +17,6 @@ import com.example.redmineclient.presentation.ui.tabMenu.view.components.TopTabB
 import com.example.redmineclient.presentation.ui.tabMenu.view.layout.TasksLayout
 import com.example.redmineclient.presentation.ui.tabMenu.view.layout.TimeEntriesLayout
 import com.example.redmineclient.presentation.ui.tabMenu.viewModel.TabMenuViewModel
-import com.example.redmineclient.presentation.ui.view.layouts.EmptyLayout
 import com.example.redmineclient.presentation.ui.view.layouts.ErrorLayout
 import com.example.redmineclient.presentation.ui.view.layouts.LoadingLayout
 import kotlinx.coroutines.launch
@@ -47,7 +44,9 @@ fun TabMenuScreen(
         modifier = Modifier
             .fillMaxSize()
     ) {
-        TopTabBar(currentTab = state.value.tabState) {
+        TopTabBar(
+            currentTab = state.value.tabState
+        ) {
             val result = viewModelWrapper.viewModel.onTabClick(it)
             if (!result && it == TabMenuItem.Tasks)
                 coroutineScope.launch {

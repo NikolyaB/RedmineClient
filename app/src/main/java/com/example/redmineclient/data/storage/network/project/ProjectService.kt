@@ -1,4 +1,4 @@
-package com.example.redmineclient.data.storage.network.projectR
+package com.example.redmineclient.data.storage.network.project
 
 import io.ktor.client.statement.*
 

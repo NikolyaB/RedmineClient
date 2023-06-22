@@ -16,6 +16,7 @@ data class User(
 
 @Serializable
 data class UserInfo(
+    val id: Int,
     val login: String,
     val firstname: String,
     val lastname: String,

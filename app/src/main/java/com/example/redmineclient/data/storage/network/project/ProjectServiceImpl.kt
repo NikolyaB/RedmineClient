@@ -1,7 +1,6 @@
-package com.example.redmineclient.data.storage.network.projectR
+package com.example.redmineclient.data.storage.network.project
 
 import com.example.redmineclient.data.storage.network.HttpRoutes
-import com.example.redmineclient.data.storage.preferences.PreferencesStore
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*

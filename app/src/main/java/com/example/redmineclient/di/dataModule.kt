@@ -4,19 +4,18 @@ import com.example.redmineclient.data.gateway.project.ProjectGatewayImpl
 import com.example.redmineclient.data.gateway.task.TaskGatewayImpl
 import com.example.redmineclient.data.gateway.timeEntries.TimeEntriesGatewayImpl
 import com.example.redmineclient.data.gateway.user.UserGatewayImpl
-import com.example.redmineclient.data.storage.network.projectR.ProjectService
-import com.example.redmineclient.data.storage.network.projectR.ProjectServiceImpl
+import com.example.redmineclient.data.storage.network.project.ProjectService
+import com.example.redmineclient.data.storage.network.project.ProjectServiceImpl
 import com.example.redmineclient.data.storage.network.task.TaskService
 import com.example.redmineclient.data.storage.network.task.TaskServiceImpl
 import com.example.redmineclient.data.storage.network.timeEntries.TimeEntriesService
 import com.example.redmineclient.data.storage.network.timeEntries.TimeEntriesServiceImpl
-import com.example.redmineclient.data.storage.network.userR.UserService
-import com.example.redmineclient.data.storage.network.userR.UserServiceImpl
+import com.example.redmineclient.data.storage.network.user.UserService
+import com.example.redmineclient.data.storage.network.user.UserServiceImpl
 import com.example.redmineclient.domain.gateway.project.ProjectGateway
 import com.example.redmineclient.domain.gateway.task.TaskGateway
 import com.example.redmineclient.domain.gateway.timeEntries.TimeEntriesGateway
 import com.example.redmineclient.domain.gateway.user.UserGateway
-import com.example.redmineclient.domain.usecase.timeEntries.TimeEntriesUseCase
 import org.koin.dsl.module
 
 val dataModule = module {

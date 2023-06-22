@@ -10,6 +10,28 @@ data class TimeEntriesResponse(
 )
 
 @Serializable
+data class TimeEntryResponse(
+    val timeEntry: TimeEntriesInfo? = null,
+    val statusResponse: StatusResponse
+)
+
+
+@Serializable
+data class TimeEntriesRequest(
+    val time_entry: TimeEntriesRequestParameters
+)
+
+@Serializable
+data class TimeEntriesRequestParameters(
+    val issue_id: Int? = null,
+    val time_entry_id: Int? = null,
+    val spent_on: String,
+    val hours: Double,
+    val activity_id: Int,
+    val comments: String
+)
+
+@Serializable
 data class TimeEntries(
     val time_entries: List<TimeEntriesInfo>,
 )

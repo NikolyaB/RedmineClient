@@ -1,14 +1,13 @@
-package com.example.redmineclient.data.storage.network.userR
+package com.example.redmineclient.data.storage.network.user
 
 import com.example.redmineclient.data.storage.network.HttpRoutes
 import com.example.redmineclient.domain.models.UserRequest
-import com.example.redmineclient.domain.models.UserResponse
-import io.ktor.client.*
-import io.ktor.client.call.*
-import io.ktor.client.plugins.*
-import io.ktor.client.request.*
-import io.ktor.client.statement.*
-import java.lang.Exception
+import io.ktor.client.HttpClient
+import io.ktor.client.request.basicAuth
+import io.ktor.client.request.get
+import io.ktor.client.request.parameter
+import io.ktor.client.request.url
+import io.ktor.client.statement.HttpResponse
 
 class UserServiceImpl(private val client: HttpClient): UserService {
     override suspend fun getCurrentUser(apiKey: String): HttpResponse {

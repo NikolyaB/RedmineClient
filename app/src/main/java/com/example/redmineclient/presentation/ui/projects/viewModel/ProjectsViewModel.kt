@@ -4,12 +4,14 @@ import com.example.redmineclient.data.storage.preferences.PreferencesStore
 import com.example.redmineclient.di.StatefulViewModel
 import com.example.redmineclient.di.StatefulViewModelImpl
 import com.example.redmineclient.domain.models.ProjectInfo
-import com.example.redmineclient.domain.state.StatusResponse
 import com.example.redmineclient.domain.state.LoadingState
+import com.example.redmineclient.domain.state.StatusResponse
 import com.example.redmineclient.domain.usecase.project.ProjectUseCase
 import com.example.redmineclient.presentation.navigator.Navigator
 import com.example.redmineclient.presentation.ui.projects.state.ProjectsState
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 
@@ -46,7 +48,6 @@ class ProjectsViewModelImpl(
             exceptionHandleable(executionBlock = {
                 preferencesStore.getToken().collect { apiKey ->
                     val data = projectsUseCase.getProjects(apiKey)
-                    println(data.projectsResponse)
                     mutableState.update {
                         it.copy(
                             statusResponse = data.statusResponse

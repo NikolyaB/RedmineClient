@@ -22,11 +22,19 @@ import com.example.redmineclient.presentation.ui.projects.viewModel.ProjectsView
 import com.example.redmineclient.presentation.ui.tabMenu.state.TabMenuState
 import com.example.redmineclient.presentation.ui.tabMenu.viewModel.TabMenuViewModel
 import com.example.redmineclient.presentation.ui.tabMenu.viewModel.TabMenuViewModelImpl
+import com.example.redmineclient.presentation.ui.taskDetail.state.TaskState
+import com.example.redmineclient.presentation.ui.taskDetail.viewModel.TaskViewModel
+import com.example.redmineclient.presentation.ui.taskDetail.viewModel.TaskViewModelImpl
+import com.example.redmineclient.presentation.ui.timeEntries.state.TimeEntriesState
+import com.example.redmineclient.presentation.ui.timeEntries.viewModel.TimeEntriesViewModel
+import com.example.redmineclient.presentation.ui.timeEntries.viewModel.TimeEntriesViewModelImpl
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 val appModule = module {
     single<Navigator> { (start: ScreenRoute) -> NavigatorImpl(start) }
     single<ErrorService> { ErrorServiceImpl() }
@@ -36,7 +44,7 @@ val appModule = module {
 
     viewModel(named("MainNavigationViewModel")) { (start: ScreenRoute) ->
         StatefulViewModelWrapper<MainNavigationViewModel, MainNavigationState>(
-            MainNavigationViewModelImpl(start)
+            MainNavigationViewModelImpl(start, preferencesStore = get())
         )
     }
 
@@ -70,6 +78,30 @@ val appModule = module {
                 navigator = get(),
                 userUseCase = get(),
                 preferencesStore = get()
+            )
+        )
+    }
+
+    viewModel(named("TaskDetailViewModel")) {(project_id: Int, task_id: Int?) ->
+        StatefulViewModelWrapper<TaskViewModel, TaskState> (
+            TaskViewModelImpl(
+                navigator = get(),
+                taskUseCase = get(),
+                userUseCase = get(),
+                preferencesStore = get(),
+                project_id = project_id,
+                task_id = task_id
+            )
+        )
+    }
+
+    viewModel(named("TimeEntriesViewModel")) {(time_entry_id: Int?) ->
+        StatefulViewModelWrapper<TimeEntriesViewModel, TimeEntriesState> (
+            TimeEntriesViewModelImpl(
+                navigator = get(),
+                timeEntriesUseCase = get(),
+                preferencesStore = get(),
+                time_entry_id = time_entry_id
             )
         )
     }

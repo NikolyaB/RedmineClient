@@ -7,10 +7,7 @@ import com.example.redmineclient.domain.state.LoadingState
 import com.example.redmineclient.domain.state.StatusResponse
 import com.example.redmineclient.domain.usecase.user.UserUseCase
 import com.example.redmineclient.presentation.navigator.Navigator
-import com.example.redmineclient.presentation.ui.authentication.state.AuthenticationState
-import com.example.redmineclient.presentation.ui.authentication.viewModel.AuthenticationViewModel
 import com.example.redmineclient.presentation.ui.profile.state.ProfileState
-import com.example.redmineclient.presentation.ui.tabMenu.state.TabMenuState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -23,7 +20,7 @@ interface ProfileViewModel: StatefulViewModel<ProfileState> {
     val userUseCase: UserUseCase
     fun getCurrentUser()
     fun onCurrentUserRefresh()
-    fun logOut()
+    fun onExitClick()
 }
 
 class ProfileViewModelImpl(
@@ -47,7 +44,7 @@ class ProfileViewModelImpl(
         jobs.add(scope.launch {
             exceptionHandleable(executionBlock = {
                 preferencesStore.getToken().collect { key ->
-                    val response = userUseCase.getCurrentUser(apiKey = key)
+                    val response = userUseCase.getCurrentUser(api_key = key)
                     val data = response.userResponse?.user
 
                     when (response.statusResponse) {
@@ -86,7 +83,7 @@ class ProfileViewModelImpl(
         })
     }
 
-    override fun logOut() {
+    override fun onExitClick() {
         jobs.add(scope.launch {
             exceptionHandleable(executionBlock = {
                 preferencesStore.deleteToken()
